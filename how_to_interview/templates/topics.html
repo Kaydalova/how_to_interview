@@ -1,0 +1,24 @@
+{% extends "base.html" %} 
+{% block title %}Выберите топик # {{ topics.id }}{%endblock %} 
+{% block content %}
+<main>
+  <section class="container my-5">
+    <div class="row">
+      <h1>Выберите топик:</h1>
+      <div class="col-12 col-lg-7 my-5">
+      <ul>
+        {% for topic in topics %}
+        <p></p><a href="{{ topic.id }}">{{ topic }}</a> </p>
+        {% endfor %}
+        </ul>
+      <div class="col-12 col-lg-7 my-5">
+        <p>{{ topic }}</p>
+      </div>
+      </div>
+      <div class="col-12 col-lg-5">
+        <img class="img-fluid mx-auto d-block" src="{{ url_for('static', filename='img/illustration.png') }}" alt="" />
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
