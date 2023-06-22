@@ -6,6 +6,7 @@ class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(MAX_TOPIC_LENGTH), nullable=False)
     questions = db.relationship('Question', backref='topic', lazy=True)
+    slug = db.Column(db.String, unique=True)
 
     def __repr__(self):
         return self.name

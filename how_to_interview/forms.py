@@ -8,3 +8,4 @@ class QuestionForm(FlaskForm):
     # title
     # question
     # answer
+    # comment

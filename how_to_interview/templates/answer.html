@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} {{topic.name}} {%endblock %}
+{% block title %} {{question.topic_id.name}} {%endblock %}
 {% block content %}
 <main>
     <section class="container my-5">
@@ -7,10 +7,12 @@
         <h1>{{topic.name}}</h1>
         <div class="col-12 col-lg-7 my-5">
             <h3>{{question.title}}</h3><br>
-            <p>{{question.question}}</p>
-            <a href="{{ url_for('answer_view', id = question.id) }}">
-                Показать ответ
+            <p>{{question.question}}</p><br>
+            <p>{{question.answer}}</p><br>
+            <a href="{{ url_for('questions_view', slug = topic.slug) }}">
+                Следующий вопрос
               </a>
+
         </div>
         <div class="col-12 col-lg-5">
           <img
