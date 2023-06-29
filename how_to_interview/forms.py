@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField
+from wtforms import (BooleanField, PasswordField, StringField, SubmitField,
+                     TextAreaField)
 from wtforms.validators import DataRequired, Length
 
 from .constants import (MAX_ANSWER_LENGTH, MAX_QUESTION_LENGTH,
@@ -26,3 +27,16 @@ class QuestionForm(FlaskForm):
         validators=[DataRequired(message='Обязательное поле'),
                     Length(MIN_ANSWER_LENGTH, MAX_ANSWER_LENGTH)])
     submit = SubmitField('Предложить')
+
+
+class LoginForm(FlaskForm):
+    username = StringField(
+        'Username',
+        validators=[DataRequired(message='Обязательное поле')])
+    password = PasswordField(
+        'Пароль',
+        validators=[DataRequired(message='Обязательное поле')])
+    remember = BooleanField(
+        'Запомнить меня')
+    submit = SubmitField(
+        'Войти')

@@ -1,6 +1,11 @@
-from how_to_interview import db
+from datetime import datetime
 
-from .constants import MAX_TITLE_LENGTH, MAX_TOPIC_LENGTH
+from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from how_to_interview import db, login_manager
+
+from .constants import MAX_TITLE_LENGTH, MAX_TOPIC_LENGTH, MAX_USERNAME_LENGTH
 
 
 class Topic(db.Model):
@@ -22,3 +27,30 @@ class Question(db.Model):
 
     def __repr__(self):
         return f'{self.topic} - {self.title}'
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return db.session.query(User).get(user_id)
+
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(
+        db.String(MAX_USERNAME_LENGTH),
+        nullable=False, unique=True)
+    email = db.Column(db.String(100), nullable=False, unique=True)
+    password = db.Column(db.String(100), nullable=False)
+    created_on = db.Column(db.DateTime(), default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'{self.id} - {self.username}'
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
+    def get_user_by_username(self, username):
+        return User.query.filter_by(username=username).first()

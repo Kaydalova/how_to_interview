@@ -1,8 +1,9 @@
-from flask import redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for
+from flask_login import login_user
 
 from . import app
-from .forms import QuestionForm
-from .models import Question, Topic
+from .forms import LoginForm, QuestionForm
+from .models import Question, Topic, User
 from .services import (get_object_by_id, get_random_question,
                        get_topic_by_slug, send_new_question)
 
@@ -44,3 +45,16 @@ def add_question_view():
 @app.route('/add_success')
 def add_success_view():
     return render_template('add_success.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.get_user_by_username(form.username.data)
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember.data)
+            return redirect(url_for('users_view'))
+        flash('Неверные учетные данные', 'error')
+        return redirect(url_for('login'))
+    return render_template('login.html', form=form)
