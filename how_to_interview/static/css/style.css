@@ -16,15 +16,15 @@ p, a {
 }
 
 a.nav-link, a {
-    color: #272727;
+    color: #3f3470;
 
 }
 
 a.nav-link:hover, a:hover {
-    color: #00D6D6;
+    color: #9881fc;
 }
 .nav-pills a.nav-link.active {
-    background-color: #00D6D6;
+    background-color: #3f3470;
     border-radius: 20px;
 }
 
@@ -43,9 +43,8 @@ p.small {
 
 .form-control:focus {
     background-color: #FFF;
-    border-color: #00D6D6;
+    border-color: #3f3470;
     outline: 0;
-    box-shadow: 0 0 0 2px rgb(0, 214, 214, 1);
   }
 
 textarea {
@@ -53,14 +52,14 @@ textarea {
 }
 
 .button {
-    background-color: #3BBEBE;
+    background-color: #9881fc;
     border-radius: 20px;
     color: #FFF;
     font-size: 20px;
 }
 
 .button:hover {
-    background-color: #00D6D6;
+    background-color: #3f3470;
     color: #FFF;
 }
 

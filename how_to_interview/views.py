@@ -1,7 +1,10 @@
+from flask import redirect, render_template, url_for
+
 from . import app
-from .models import Topic, Question
-from flask import render_template
-from random import randrange
+from .forms import QuestionForm
+from .models import Question, Topic
+from .services import (get_object_by_id, get_random_question,
+                       get_topic_by_slug, send_new_question)
 
 
 @app.route('/')
@@ -21,33 +24,23 @@ def questions_view(slug):
 def answer_view(id):
     question = get_object_by_id(id, Question)
     topic = get_object_by_id(question.topic_id, Topic)
-    return render_template('answer.html', question=question, slug=topic.slug)
+    return render_template('answer.html', question=question, topic=topic)
 
 
-def get_topic_by_slug(slug):
+@app.route('/add_question', methods=['GET', 'POST'])
+def add_question_view():
     """
-    Функция возвращает объект класса Topic по его slug.
+    Функция для отправки формы с новым запросом.
+    Если данные из формы валидны - вопрос отправляется
+    в чат тг для ручной модерации.
     """
-    topic = Topic.query.filter_by(slug=slug).first()
-    return topic
+    form = QuestionForm()
+    if form.validate_on_submit():
+        send_new_question(form)
+        return redirect(url_for('add_success_view'))
+    return render_template('add_question.html', form=form)
 
 
-def get_object_by_id(id, model):
-    """
-    Функция возвращает объект указанной модели по еe id.
-    """
-    object = model.query.filter_by(id=id).first()
-    return object
-
-
-def get_random_question(topic):
-    """
-    Функция возвращает рандомный вопрос из базы по указанному топику.
-    """
-    quantity = Question.query.filter_by(
-        topic_id=topic.id).count()
-    if quantity:
-        offset_value = randrange(quantity)
-        question = Question.query.filter_by(
-            topic_id=topic.id).offset(offset_value).first()
-        return question
+@app.route('/add_success')
+def add_success_view():
+    return render_template('add_success.html')

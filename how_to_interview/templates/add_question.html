@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
-{% block title %} Добавить мнение о фильме {% endblock %}
+{% block title %} Предложить свой вопрос {% endblock %}
 {% block content %}
 <main>
   <section class="container my-5">
     <div class="row">
-      <h1>Добавить мнение о фильме</h1>
+      <h1>Предложить свой вопрос</h1>
       <div class="col-12 col-lg-7 my-5">
         <!-- Подключение к форме CSRF-токена -->
         <form method="POST" novalidate>
           {{ form.csrf_token }}
+          {{ form.topic(class="form-control form-control-lg py-3 mb-3", placeholder=form.topic.label.text) }}
+          <p>
+            {% if form.topic.errors %}
+              {% for error in form.topic.errors %}
+                <span style="color: red">{{ error }}</span>
+              {% endfor %}
+            {% endif %}
+          </p>
           {{ form.title(class="form-control form-control-lg py-3 mb-3", placeholder=form.title.label.text) }}
           <p>
             {% if form.title.errors %}
@@ -17,12 +25,18 @@
               {% endfor %}
             {% endif %}
           </p>
-          {{ form.source(class="form-control form-control-lg py-3 mb-3", placeholder=form.source.label.text) }}
-          <p></p>
-          {{ form.text(class="form-control form-control-lg py-3 mb-3", placeholder=form.text.label.text, rows="3", cols="40")}}
+          {{ form.question(class="form-control form-control-lg py-3 mb-3", placeholder=form.question.label.text, rows="3", cols="40")}}
           <p>
-            {% if form.text.errors %}
-              {% for error in form.text.errors %}
+            {% if form.question.errors %}
+              {% for error in form.question.errors %}
+                <span style="color: red">{{ error }}</span>
+              {% endfor %}
+            {% endif %}
+          </p>
+          {{ form.answer(class="form-control form-control-lg py-3 mb-3", placeholder=form.answer.label.text, rows="3", cols="40")}}
+                    <p>
+            {% if form.answer.errors %}
+              {% for error in form.answer.errors %}
                 <span style="color: red">{{ error }}</span>
               {% endfor %}
             {% endif %}
@@ -42,7 +56,7 @@
       <div class="col-12 col-lg-5">
         <img
           class="img-fluid mx-auto d-block"
-          src="{{ url_for('static', filename='img/illustration.png') }}"
+          src="{{ url_for('static', filename='img/female_programmer.png') }}"
           alt=""
         />
       </div>

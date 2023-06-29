@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %} Ваш вопрос отправлен на модерацию {% endblock %}
+{% block content %}
+<main>
+  <section class="container my-5">
+    <div class="row">
+      <h1>Ваш вопрос отправлен на модерацию</h1>
+      <div class="col-12 col-lg-7 my-5">
+        <h5>Модерация занимает до 24 часов.
+          <br><br>В случае успешного прохождения модерации вопрос будет добавлен с общий список.</h5><br>
+        <br><br>
+        <a href="{{url_for('add_question_view')  }}">
+          Предложить другой вопрос
+        </a>
+      </div>
+      <div class="col-12 col-lg-5">
+        <img
+          class="img-fluid mx-auto d-block"
+          src="{{ url_for('static', filename='img/female_programmer.png') }}"
+          alt=""
+        />
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

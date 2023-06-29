@@ -1,4 +1,5 @@
 from how_to_interview import db
+
 from .constants import MAX_TITLE_LENGTH, MAX_TOPIC_LENGTH
 
 
