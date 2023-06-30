@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %} Привет, {{current_user.username}}! {% endblock %}
+{% block content %}
+<main>
+  <section class="container my-5">
+    <div class="row">
+      <h1>Привет, {{current_user.username}}!</h1>
+      <div class="col-12 col-lg-7 my-5">
+          <p> Твоя активность за 2 месяца: </p><br>
+  <style>
+   table {
+    width: 150px; /* Ширина таблицы */
+    background: white; /* Цвет фона таблицы */
+    color: black; /* Цвет текста */
+    border-spacing: 1px; /* Расстояние между ячейками */
+    border: 1px solid grey;
+    height: 150px;
+   }
+   td, th {
+    background: white; /* Цвет фона ячеек */
+    padding: 4px; /* Поля вокруг текста */
+    border: 1px solid grey;
+   }
+  </style>
+ </head>
+ <body>
+  <table>
+   <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+   <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+   <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+   <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+   <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+   <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+   <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <br><br>
+ <p> Твоя добавленные вопросы: </p><br>
+
+      </div>
+      <div class="col-12 col-lg-5">
+        <img
+          class="img-fluid mx-auto d-block"
+          src="{{ url_for('static', filename='img/female_programmer.png') }}"
+          alt=""
+        />
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

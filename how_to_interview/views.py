@@ -1,8 +1,9 @@
 from flask import flash, redirect, render_template, url_for
-from flask_login import login_user
+from flask_login import current_user, login_required, login_user, logout_user
+from werkzeug.security import generate_password_hash
 
-from . import app
-from .forms import LoginForm, QuestionForm
+from . import app, db
+from .forms import LoginForm, QuestionForm, RegisterForm
 from .models import Question, Topic, User
 from .services import (get_object_by_id, get_random_question,
                        get_topic_by_slug, send_new_question)
@@ -47,14 +48,44 @@ def add_success_view():
     return render_template('add_success.html')
 
 
+@app.route('/register', methods=['GET', 'POST'])
+def register_view():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            password=generate_password_hash(form.password.data)
+        )
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        return redirect(url_for('profile_view'))
+    return render_template('register.html', form=form)
+
+
 @app.route('/login', methods=['GET', 'POST'])
-def login():
+def login_view():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.get_user_by_username(form.username.data)
+        user = User.query.filter_by(username=form.username.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('users_view'))
+            return redirect(url_for('profile_view'))
         flash('Неверные учетные данные', 'error')
-        return redirect(url_for('login'))
+        return redirect(url_for('login_view'))
     return render_template('login.html', form=form)
+
+
+@app.route('/profile')
+def profile_view():
+    print(current_user)
+    return render_template('profile.html')
+
+
+@app.route('/logout/')
+@login_required
+def logout_view():
+    logout_user()
+    flash("Вы вышли из профиля.")
+    return redirect(url_for('login_view'))

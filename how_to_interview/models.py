@@ -1,9 +1,8 @@
 from datetime import datetime
 
 from flask_login import UserMixin
-from werkzeug.security import check_password_hash, generate_password_hash
-
 from how_to_interview import db, login_manager
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from .constants import MAX_TITLE_LENGTH, MAX_TOPIC_LENGTH, MAX_USERNAME_LENGTH
 

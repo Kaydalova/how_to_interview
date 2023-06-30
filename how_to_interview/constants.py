@@ -11,3 +11,12 @@ MIN_ANSWER_LENGTH = 2
 MAX_ANSWER_LENGTH = 200
 
 MAX_USERNAME_LENGTH = 30
+
+MIN_PASSWORD_LENGTH = 8
+MAX_PASSWORD_LENGTH = 16
+
+
+# validating messages
+DATA_REQUIRED = 'Обязательное поле'
+PASSWORD_LENGTH = 'Пароль должен быть от 8 до 16 символов'
+WRONG_USERNAME = 'Username должен содержать только буквы и цифры'

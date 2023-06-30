@@ -6,15 +6,31 @@
       </a>
         <div class="d-flex justify-content-end">
           <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('index_view') }}">
+                Выбрать другой топик
+              </a>
+            {% if current_user.is_authenticated %}
             <li class="nav-item pe-5">
               <a class="nav-link" href="{{ url_for('add_question_view') }}">
                 Предложить свой вопрос
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('index_view') }}">
-                Выбрать другой топик
+              <a class="nav-link" href="{{ url_for('logout_view') }}">
+                Выйти
               </a>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('register_view') }}">
+                Регистрация
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('login_view') }}">
+                Войти
+              </a>
+            {% endif %}
             </li>
           </ul>
         </div>
