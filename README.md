@@ -1,7 +1,7 @@
 # how_to_interview
 Приложение поможет вам подготовиться к собеседованию на позицию Python-разработчик.
 
-###Используемые технологии
+### Используемые технологии
 - :snake: Python 3.8.10
 - :incoming_envelope: Flask 2.0.2
 - :busts_in_silhouette: Jinja2 3.1.2
