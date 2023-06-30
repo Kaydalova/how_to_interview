@@ -11,3 +11,17 @@ migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 
 from . import views  # noqa
+
+
+# SQLite does not support dropping or altering columns.
+# However, there is a way to work around this:
+# Alembic's batch_alter_table context manager lets you specify
+# the changes in a natural way, and does a little
+# "make new table - copy data - drop old table - rename new table"
+# dance behind the scenes when using SQLite
+
+with app.app_context():
+    if db.engine.url.drivername == 'sqlite':
+        migrate.init_app(app, db, render_as_batch=True)
+    else:
+        migrate.init_app(app, db)

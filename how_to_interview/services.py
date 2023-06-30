@@ -1,10 +1,12 @@
+import datetime
 import os
 from random import randrange
 
 from dotenv import load_dotenv
 from telegram import Bot
 
-from .models import Question, Topic
+from . import db
+from .models import Question, Statistics, Topic
 
 load_dotenv()
 
@@ -50,3 +52,20 @@ def send_new_question(form):
 Ответ: {form.data.get('answer')}
 '''
     bot.send_message(os.getenv('TELEGRAM_CHAT_ID'), text=text)
+
+
+def increase_daily_statistics(user_id):
+    print(user_id)
+    today = datetime.date.today()
+    today_statistics = Statistics.query.filter_by(
+        user_id=user_id, date=today).first()
+    if not today_statistics:
+        today_statistics = Statistics(
+            date=today, user_id=user_id, solved=1)
+        db.session.add(today_statistics)
+        db.session.commit()
+        print(today_statistics)
+    else:
+        today_statistics.solved += 1
+        db.session.add(today_statistics)
+        db.session.commit()

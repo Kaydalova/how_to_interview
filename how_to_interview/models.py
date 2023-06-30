@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 from flask_login import UserMixin
 from how_to_interview import db, login_manager
@@ -40,7 +40,7 @@ class User(db.Model, UserMixin):
         nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
-    created_on = db.Column(db.DateTime(), default=datetime.utcnow)
+    created_on = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
 
     def __repr__(self):
         return f'{self.id} - {self.username}'
@@ -51,5 +51,13 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def get_user_by_username(self, username):
+    @staticmethod
+    def get_user_by_username(username):
         return User.query.filter_by(username=username).first()
+
+
+class Statistics(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date, default=datetime.date.today)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    solved = db.Column(db.Integer, default=0)

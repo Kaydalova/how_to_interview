@@ -6,7 +6,8 @@ from . import app, db
 from .forms import LoginForm, QuestionForm, RegisterForm
 from .models import Question, Topic, User
 from .services import (get_object_by_id, get_random_question,
-                       get_topic_by_slug, send_new_question)
+                       get_topic_by_slug, increase_daily_statistics,
+                       send_new_question)
 
 
 @app.route('/')
@@ -19,6 +20,8 @@ def index_view():
 def questions_view(slug):
     topic = get_topic_by_slug(slug)
     question = get_random_question(topic)
+    if current_user.is_authenticated:
+        increase_daily_statistics(current_user.id)
     return render_template('questions.html', question=question, topic=topic)
 
 
