@@ -10,8 +10,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 
-from . import views  # noqa
-
+from . import cli_commands, views, error_handlers   # noqa
 
 # SQLite does not support dropping or altering columns.
 # However, there is a way to work around this:

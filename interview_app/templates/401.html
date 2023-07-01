@@ -1,18 +1,18 @@
 {% extends 'base.html' %} 
-{% block title %}404. Если тут что-то было, теперь этого тут нет.{% endblock %}
+{% block title %}401. Войдите, чтобы увидеть личный кабинет.{% endblock %}
 {% block content %}
 <main>
   <section class="container my-5">
     <div class="row">
       <div class="col-12 col-lg-7 my-5">
         <h1 class="mb-5">Ты не пройдёшь!</h1>
-        <p>Если тут что-то было, теперь этого тут нет.</p>
+        <p>Для просмотра этой страницы требуется авторизация.</p>
         <p>
           <a href="{{ url_for('index_view') }}">Вернуться на главную</a>
         </p>
       </div>
       <div class="col-12 col-lg-5">
-        <img class="img-fluid mx-auto d-block" src="{{ url_for('static', filename='img/404.png') }}" alt="" />
+        <img class="img-fluid mx-auto d-block" src="{{ url_for('static', filename='img/female_programmer.png') }}" alt="" />
       </div>
     </div>
   </section>

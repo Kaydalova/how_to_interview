@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for, abort
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash
 
@@ -14,12 +14,16 @@ from .services import (get_object_by_id, get_random_question,
 @app.route('/')
 def index_view():
     topics = Topic.query.all()
+    if not topics:
+        abort(404)
     return render_template('topics.html', topics=topics)
 
 
 @app.route('/<string:slug>')
 def questions_view(slug):
     topic = get_topic_by_slug(slug)
+    if not topic:
+        abort(404)
     question = get_random_question(topic)
     if current_user.is_authenticated:
         increase_daily_statistics(current_user.id)
@@ -98,3 +102,4 @@ def logout_view():
     logout_user()
     flash("Вы вышли из профиля.")
     return redirect(url_for('login_view'))
+

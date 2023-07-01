@@ -4,6 +4,7 @@ from random import randrange
 
 from dotenv import load_dotenv
 from telegram import Bot
+from flask import abort
 
 from . import db
 from .models import Question, Statistics, Topic
@@ -33,11 +34,12 @@ def get_random_question(topic):
     """
     quantity = Question.query.filter_by(
         topic_id=topic.id).count()
-    if quantity:
-        offset_value = randrange(quantity)
-        question = Question.query.filter_by(
-            topic_id=topic.id).offset(offset_value).first()
-        return question
+    if not quantity:
+        abort(404)
+    offset_value = randrange(quantity)
+    question = Question.query.filter_by(
+        topic_id=topic.id).offset(offset_value).first()
+    return question
 
 
 def send_new_question(form):
