@@ -20,3 +20,4 @@ MAX_PASSWORD_LENGTH = 16
 DATA_REQUIRED = 'Обязательное поле'
 PASSWORD_LENGTH = 'Пароль должен быть от 8 до 16 символов'
 WRONG_USERNAME = 'Username должен содержать только буквы и цифры'
+EIGHT_WEEKS_DAYS = 56

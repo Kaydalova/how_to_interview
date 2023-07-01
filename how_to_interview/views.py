@@ -3,8 +3,9 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash
 
 from . import app, db
+from .constants import EIGHT_WEEKS_DAYS
 from .forms import LoginForm, QuestionForm, RegisterForm
-from .models import Question, Topic, User
+from .models import Question, Statistics, Topic, User
 from .services import (get_object_by_id, get_random_question,
                        get_topic_by_slug, increase_daily_statistics,
                        send_new_question)
@@ -82,8 +83,13 @@ def login_view():
 
 @app.route('/profile')
 def profile_view():
-    print(current_user)
-    return render_template('profile.html')
+    statistics = Statistics.query.filter_by(
+        user_id=current_user.id).order_by(
+            Statistics.date).all()
+    if len(statistics) < EIGHT_WEEKS_DAYS:
+        longer = [Statistics(solved=0)] * (EIGHT_WEEKS_DAYS-len(statistics))
+        statistics = longer + statistics
+    return render_template('profile.html', statistics=statistics)
 
 
 @app.route('/logout/')

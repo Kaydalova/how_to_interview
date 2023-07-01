@@ -8,18 +8,24 @@
           <ul class="nav nav-pills">
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('index_view') }}">
-                Выбрать другой топик
+                Выбрать топик
               </a>
             {% if current_user.is_authenticated %}
-            <li class="nav-item pe-5">
+            <li class="nav-item">
               <a class="nav-link" href="{{ url_for('add_question_view') }}">
-                Предложить свой вопрос
+                Предложить вопрос
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('profile_view') }}">
+                Профиль
+              </a>
+              </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('logout_view') }}">
                 Выйти
               </a>
+              </li>
             {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('register_view') }}">
