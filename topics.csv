@@ -1,0 +1,11 @@
+﻿name,slug
+Core Python,core
+Базы данных,db
+Git,git
+Ethernet,ethernet
+DRF,drf
+Django,django
+Flask,flask
+FastAPI,fastapi
+Docker,docker
+CI/CD,cicd
