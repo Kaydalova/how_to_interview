@@ -1,7 +1,7 @@
-![alt text](interview_app/static/img/female_programmer.png)
- <div>   
-<h3 align="center">How to interview</h3>
-<h5 align="center">Приложение поможет вам подготовиться к собеседованию на позицию Python-разработчик.</h5>
+<div align="center">
+ <img src="interview_app/static/img/female_programmer_readme.png" alt="Logo"> 
+<h3 >How to interview</h3>
+Приложение поможет вам подготовиться к собеседованию на позицию Python-разработчик.
 </div>
 
 ### Используемые технологии
