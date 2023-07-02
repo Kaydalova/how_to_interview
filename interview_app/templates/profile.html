@@ -6,7 +6,9 @@
     <div class="row">
       <h1>Привет, {{current_user.username}}!</h1>
       <div class="col-12 col-lg-7 my-5">
-          <p> Твоя активность за 2 месяца: </p><br>
+          <p> Email: {{ current_user.email }} </p>
+          <p> Дата регистрации: {{ current_user.created_on }}</p><br>
+          <br><h5> Твоя активность за 2 месяца: </h5><br>
   <style>
    table {
     width: 150px; /* Ширина таблицы */
@@ -17,7 +19,7 @@
     height: 130px;
    }
    td, th {
-    background: solid grey; /* Цвет фона ячеек */
+
     padding: 8px; /* Поля вокруг текста */
     border: 1px solid grey;
    }
@@ -28,37 +30,93 @@
       {% if statistics %}
       <tr>
         {% for st in statistics[::7]%}
-            <td>{{st.solved}}</td>
+           {% if st.solved > 7 %}
+            <td BGCOLOR=48E548>{{st.solved}}</td>
+            {% elif st.solved > 3 %}
+            <td BGCOLOR=82ED82>{{st.solved}}</td>
+            {% elif st.solved > 0 %}
+            <td BGCOLOR=C5F7C5>{{st.solved}}</td>
+          {%else%}
+          <td>{{st.solved}}</td>
+          {% endif %}
         {% endfor %}
       </tr>
       <tr>
         {% for st in statistics[1::7]%}
-            <td>{{st.solved}}</td>
+           {% if st.solved > 7 %}
+            <td BGCOLOR=48E548>{{st.solved}}</td>
+            {% elif st.solved > 3 %}
+            <td BGCOLOR=82ED82>{{st.solved}}</td>
+            {% elif st.solved > 0 %}
+            <td BGCOLOR=C5F7C5>{{st.solved}}</td>
+          {%else%}
+          <td>{{st.solved}}</td>
+          {% endif %}
         {% endfor %}
       </tr>
       <tr>
         {% for st in statistics[2::7]%}
-            <td>{{st.solved}}</td>
+           {% if st.solved > 7 %}
+            <td BGCOLOR=48E548>{{st.solved}}</td>
+            {% elif st.solved > 3 %}
+            <td BGCOLOR=82ED82>{{st.solved}}</td>
+            {% elif st.solved > 0 %}
+            <td BGCOLOR=C5F7C5>{{st.solved}}</td>
+          {%else%}
+          <td>{{st.solved}}</td>
+          {% endif %}
         {% endfor %}
       </tr>
       <tr>
         {% for st in statistics[3::7]%}
-            <td>{{st.solved}}</td>
+           {% if st.solved > 7 %}
+            <td BGCOLOR=48E548>{{st.solved}}</td>
+            {% elif st.solved > 3 %}
+            <td BGCOLOR=82ED82>{{st.solved}}</td>
+            {% elif st.solved > 0 %}
+            <td BGCOLOR=C5F7C5>{{st.solved}}</td>
+          {%else%}
+          <td>{{st.solved}}</td>
+          {% endif %}
         {% endfor %}
       </tr>
       <tr>
         {% for st in statistics[4::7]%}
-            <td>{{st.solved}}</td>
+           {% if st.solved > 7 %}
+            <td BGCOLOR=48E548>{{st.solved}}</td>
+            {% elif st.solved > 3 %}
+            <td BGCOLOR=82ED82>{{st.solved}}</td>
+            {% elif st.solved > 0 %}
+            <td BGCOLOR=C5F7C5>{{st.solved}}</td>
+          {%else%}
+          <td>{{st.solved}}</td>
+          {% endif %}
         {% endfor %}
       </tr>
       <tr>
         {% for st in statistics[5::7]%}
-            <td>{{st.solved}}</td>
+           {% if st.solved > 7 %}
+            <td BGCOLOR=48E548>{{st.solved}}</td>
+            {% elif st.solved > 3 %}
+            <td BGCOLOR=82ED82>{{st.solved}}</td>
+            {% elif st.solved > 0 %}
+            <td BGCOLOR=C5F7C5>{{st.solved}}</td>
+          {%else%}
+          <td>{{st.solved}}</td>
+          {% endif %}
         {% endfor %}
       </tr>
             <tr>
         {% for st in statistics[6::7]%}
-            <td>{{st.solved}}</td>
+            {% if st.solved > 7 %}
+            <td BGCOLOR=48E548>{{st.solved}}</td>
+            {% elif st.solved > 3 %}
+            <td BGCOLOR=82ED82>{{st.solved}}</td>
+            {% elif st.solved > 0 %}
+            <td BGCOLOR=C5F7C5>{{st.solved}}</td>
+          {%else%}
+          <td>{{st.solved}}</td>
+          {% endif %}
         {% endfor %}
       </tr>
             {% endif %}

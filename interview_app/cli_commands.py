@@ -25,9 +25,10 @@ def load_topics_command():
 def load_questions_command():
     """Функция загрузки вопросов в базу данных."""
     with open('questions.csv', encoding='utf-8-sig') as f:
-        reader = csv.DictReader(f)
+        reader = csv.DictReader(f, delimiter='\t')
         counter = 0
         for row in reader:
+            print(row)
             opinion = Question(**row)
             db.session.add(opinion)
             db.session.commit()

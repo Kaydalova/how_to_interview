@@ -40,7 +40,7 @@ class User(db.Model, UserMixin):
         nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
-    created_on = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
+    created_on = db.Column(db.Date, default=datetime.date.today)
 
     def __repr__(self):
         return f'{self.id} - {self.username}'

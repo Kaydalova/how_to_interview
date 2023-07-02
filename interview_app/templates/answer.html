@@ -8,11 +8,10 @@
         <div class="col-12 col-lg-7 my-5">
             <h3>{{question.title}}</h3><br>
             <p>{{question.question}}</p><br>
-            <p>{{question.answer}}</p><br>
+            <p>{{question.answer| safe}}</p><br>
             <a href="{{ url_for('questions_view', slug = topic.slug) }}">
                 Следующий вопрос
               </a>
-
         </div>
         <div class="col-12 col-lg-5">
           <img
