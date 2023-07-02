@@ -1,4 +1,7 @@
-# how_to_interview
+<div align="center">
+    <img src="https://github.com/Kaydalova/how_to_interview/interview_app/static/img/female_programmer.png">
+<h3 align="center">How to interview</h3>
+</div>
 Приложение поможет вам подготовиться к собеседованию на позицию Python-разработчик.
 
 ### Используемые технологии
