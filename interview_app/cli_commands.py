@@ -32,9 +32,10 @@ def load_questions_command():
     """Функция загрузки вопросов в базу данных."""
     load_topics()
     with open('interview_app/static/data/questions.csv', encoding='utf-8-sig') as f:
-        reader = csv.DictReader(f, delimiter='\t')
+        reader = csv.DictReader(f, delimiter=';')
         counter = 0
         for row in reader:
+            row['answer']=row['answer'].replace('\n', '<br>')
             opinion = Question(**row)
             db.session.add(opinion)
             db.session.commit()
