@@ -11,6 +11,6 @@ class Config(object):
     MAIL_PORT = 465
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
-    MAIL_USERNAME = 'alexandrakaydalova@yandex.ru'  
-    MAIL_DEFAULT_SENDER = 'alexandrakaydalova@yandex.ru'  
-    MAIL_PASSWORD = 'ulblwisalzobfudd'
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME')
+    MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER')
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
