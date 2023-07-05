@@ -41,13 +41,15 @@
               {% endfor %}
             {% endif %}
           </p>
+          {% if current_user.is_confirmed %}
           {{ form.submit(class="button px-5 py-3 btn") }}
+          {% endif %}
         </form>
         <p class="py-3 mb-3">
           {% with messages = get_flashed_messages() %}
             {% if messages %}
               {% for message in messages %}
-                {{ message }}
+              <span style="color: red">{{ message }}</span>
               {% endfor %}
             {% endif %}
           {% endwith %}

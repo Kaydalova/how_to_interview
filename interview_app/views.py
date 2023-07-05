@@ -3,7 +3,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash
 
 from . import app, db
-from .constants import EIGHT_WEEKS_DAYS
+from .constants import EIGHT_WEEKS_DAYS, EMAIL_NOT_CONFIRMED
 from .forms import LoginForm, QuestionForm, RegisterForm
 from .models import Question, Statistics, Topic, User
 from .services import (get_object_by_id, get_random_question,
@@ -15,8 +15,6 @@ from .services import (get_object_by_id, get_random_question,
 @app.route('/')
 def index_view():
     topics = Topic.query.all()
-    if not topics:
-        abort(404)
     return render_template('topics.html', topics=topics)
 
 
@@ -46,6 +44,8 @@ def add_question_view():
     Если данные из формы валидны - вопрос отправляется
     в чат тг для ручной модерации.
     """
+    if not current_user.is_confirmed:
+        flash(EMAIL_NOT_CONFIRMED, 'confirmation_required')
     form = QuestionForm()
     if form.validate_on_submit():
         send_new_question(form)

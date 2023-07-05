@@ -4,16 +4,18 @@
 <main>
   <section class="container my-5">
     <div class="row">
-      <h1>Выберите топик:</h1>
+      <h1>Выберите топик</h1>
       <div class="col-12 col-lg-7 my-5">
+        {% if topics %}
       <ul>
         {% for topic in topics %}
         <p></p><a href="{{ topic.slug }}">{{ topic }}</a> </p>
         {% endfor %}
         </ul>
-      <div class="col-12 col-lg-7 my-5">
-        <p>{{ topic }}</p>
-      </div>
+        {% else %}
+        <p>Кажется в базе пока нет ни одного топика!</p>
+
+        {% endif %}
       </div>
       <div class="col-12 col-lg-5">
         <img class="img-fluid mx-auto d-block" src="{{ url_for('static', filename='img/female_programmer.png') }}" alt="" />
