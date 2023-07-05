@@ -3,7 +3,9 @@ import csv
 import click
 
 from . import app, db
-from .models import Topic, Question
+from .constants import QUESTIONS_CSV, TOPICS_CSV
+from .models import Question, Topic
+
 
 @app.cli.command('create_db')
 def create_database():
@@ -16,7 +18,7 @@ def create_database():
 
 def load_topics():
     """Функция загрузки топиков в базу данных."""
-    with open('interview_app/static/data/topics.csv', encoding='utf-8-sig') as f:
+    with open(TOPICS_CSV, encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         counter = 0
         for row in reader:
@@ -31,14 +33,13 @@ def load_topics():
 def load_questions_command():
     """Функция загрузки вопросов в базу данных."""
     load_topics()
-    with open('interview_app/static/data/questions.csv', encoding='utf-8-sig') as f:
+    with open(QUESTIONS_CSV, encoding='utf-8-sig') as f:
         reader = csv.DictReader(f, delimiter=';')
         counter = 0
         for row in reader:
-            row['answer']=row['answer'].replace('\n', '<br>')
+            row['answer'] = row['answer'].replace('\n', '<br>')
             opinion = Question(**row)
             db.session.add(opinion)
             db.session.commit()
             counter += 1
     click.echo(f'Загружено вопросов: {counter}')
-

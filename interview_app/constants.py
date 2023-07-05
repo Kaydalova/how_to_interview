@@ -21,3 +21,18 @@ DATA_REQUIRED = 'Обязательное поле'
 PASSWORD_LENGTH = 'Пароль должен быть от 8 до 16 символов'
 WRONG_USERNAME = 'Username должен содержать только буквы и цифры'
 EIGHT_WEEKS_DAYS = 56
+
+
+# email confirmation
+SUBJECT = 'Подтверждение почты'
+MAIN_URL = 'http://127.0.0.1:5000/confirm/'
+CONFIRM_MESSAGE = '''
+Вы получили это сообщение так как прошли регистрацию на сервисе How to interview.
+После завершения регистрации и подтверждения почты вам будет доступно добавление своего вопроса.
+Для подтверждения регистрации перейдите по ссылке {}.'''
+SENDER_EMAIL = 'alexandrakaydalova@yandex.ru'
+
+
+# data files
+QUESTIONS_CSV = 'interview_app/static/data/questions.csv'
+TOPICS_CSV = 'interview_app/static/data/topics.csv'

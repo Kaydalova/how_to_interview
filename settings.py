@@ -6,11 +6,11 @@ class Config(object):
         'DATABASE_URI', default='sqlite:///db.sqlite3')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.getenv('SECRET_KEY')
-    # MAIL_SERVER
-    # MAIL_PORT
-    # MAIL_USE_TLS
-    # MAIL_USERNAME
-    # MAIL_DEFAULT_SENDER
-    # MAIL_PASSWORD
 
-
+    MAIL_SERVER = 'smtp.yandex.ru'
+    MAIL_PORT = 465
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+    MAIL_USERNAME = 'alexandrakaydalova@yandex.ru'  
+    MAIL_DEFAULT_SENDER = 'alexandrakaydalova@yandex.ru'  
+    MAIL_PASSWORD = 'ulblwisalzobfudd'

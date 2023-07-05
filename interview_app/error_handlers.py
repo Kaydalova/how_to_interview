@@ -2,6 +2,7 @@ from flask import render_template
 
 from . import app, db
 
+
 @app.errorhandler(401)
 def unauthorized(error):
     return render_template('401.html'), 401

@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, url_for, abort
+from flask import abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash
 
@@ -8,7 +8,8 @@ from .forms import LoginForm, QuestionForm, RegisterForm
 from .models import Question, Statistics, Topic, User
 from .services import (get_object_by_id, get_random_question,
                        get_topic_by_slug, increase_daily_statistics,
-                       send_new_question)
+                       send_confirmation, send_new_question,
+                       user_set_confirmed)
 
 
 @app.route('/')
@@ -38,6 +39,7 @@ def answer_view(id):
 
 
 @app.route('/add_question', methods=['GET', 'POST'])
+@login_required
 def add_question_view():
     """
     Функция для отправки формы с новым запросом.
@@ -68,6 +70,7 @@ def register_view():
         db.session.add(user)
         db.session.commit()
         login_user(user)
+        send_confirmation(user)
         return redirect(url_for('profile_view'))
     return render_template('register.html', form=form)
 
@@ -100,6 +103,12 @@ def profile_view():
 @login_required
 def logout_view():
     logout_user()
-    flash("Вы вышли из профиля.")
+    flash('Вы вышли из профиля.')
     return redirect(url_for('login_view'))
 
+
+@app.route('/confirm/<string:link>/')
+def confirm_email_view(link):
+    user_set_confirmed(link)
+    flash('Почта успешно подтверждена.', 'email_confirmed')
+    return redirect(url_for('profile_view'))

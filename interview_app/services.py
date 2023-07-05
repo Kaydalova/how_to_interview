@@ -1,13 +1,17 @@
 import datetime
 import os
+import uuid
 from random import randrange
+from urllib.parse import urljoin
 
 from dotenv import load_dotenv
-from telegram import Bot
 from flask import abort
+from flask_mail import Message
+from telegram import Bot
 
-from . import db
-from .models import Question, Statistics, Topic
+from . import db, mail
+from .constants import CONFIRM_MESSAGE, MAIN_URL, SENDER_EMAIL, SUBJECT
+from .models import Question, Statistics, Topic, User
 
 load_dotenv()
 
@@ -57,7 +61,10 @@ def send_new_question(form):
 
 
 def increase_daily_statistics(user_id):
-    print(user_id)
+    """
+    Функция создает новую запись модели Statistics, если ее еще нет
+    и увеличивает счетчик просмотра вопросов на 1 при каждом вызове.
+    """
     today = datetime.date.today()
     today_statistics = Statistics.query.filter_by(
         user_id=user_id, date=today).first()
@@ -66,8 +73,40 @@ def increase_daily_statistics(user_id):
             date=today, user_id=user_id, solved=1)
         db.session.add(today_statistics)
         db.session.commit()
-        print(today_statistics)
     else:
         today_statistics.solved += 1
         db.session.add(today_statistics)
         db.session.commit()
+
+
+def send_confirmation(user):
+    """
+    Функция отправляет на почту пользователя ссылку
+    для подтверждения почты.
+    """
+    confirmation_uuid = uuid.uuid4()
+    confirm_link = urljoin(MAIN_URL, f'{confirmation_uuid}/')
+    user.confirm_link = str(confirmation_uuid)
+    db.session.add(user)
+    db.session.commit()
+
+    msg = Message(SUBJECT,
+                  sender=SENDER_EMAIL,
+                  recipients=[user.email])
+    msg.body = CONFIRM_MESSAGE.format(confirm_link)
+    mail.send(msg)
+
+
+def user_set_confirmed(link):
+    """
+    Функция проверяет наличие в базе пользователя с указанной
+    ссылкой для подтверждения.
+    Если пользователь найден - полю is_confirmed присваивается значение True.
+    Если нет - поднимает ошибку 404.
+    """
+    user = User.query.filter_by(confirm_link=link).first()
+    if not user:
+        abort(404)
+    user.is_confirmed = True
+    db.session.add(user)
+    db.session.commit()

@@ -1,8 +1,9 @@
 import datetime
 
 from flask_login import UserMixin
-from interview_app import db, login_manager
 from werkzeug.security import check_password_hash, generate_password_hash
+
+from interview_app import db, login_manager
 
 from .constants import MAX_TITLE_LENGTH, MAX_TOPIC_LENGTH, MAX_USERNAME_LENGTH
 
@@ -41,6 +42,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
     created_on = db.Column(db.Date, default=datetime.date.today)
+    is_confirmed = db.Column(db.Boolean, default=False)
+    confirm_link = db.Column(db.String(32), unique=True)
 
     def __repr__(self):
         return f'{self.id} - {self.username}'

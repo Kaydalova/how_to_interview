@@ -10,12 +10,12 @@
               <a class="nav-link" href="{{ url_for('index_view') }}">
                 Выбрать топик
               </a>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('add_question_view') }}">
+                  Предложить вопрос
+                </a>
+              </li>
             {% if current_user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('add_question_view') }}">
-                Предложить вопрос
-              </a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('profile_view') }}">
                 Профиль
@@ -36,8 +36,9 @@
               <a class="nav-link" href="{{ url_for('login_view') }}">
                 Войти
               </a>
-            {% endif %}
             </li>
+            {% endif %}
+           
           </ul>
         </div>
       </div>
