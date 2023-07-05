@@ -14,12 +14,18 @@ from .services import (get_object_by_id, get_random_question,
 
 @app.route('/')
 def index_view():
+    """
+    Главная страница с перечнем доступных топиков.
+    """
     topics = Topic.query.all()
     return render_template('topics.html', topics=topics)
 
 
 @app.route('/<string:slug>')
 def questions_view(slug):
+    """
+    Страница просмотра вопросов конкретного топика.
+    """
     topic = get_topic_by_slug(slug)
     if not topic:
         abort(404)
@@ -31,6 +37,9 @@ def questions_view(slug):
 
 @app.route('/<int:id>/answer/')
 def answer_view(id):
+    """
+    Страница просмотра ответа на вопрос.
+    """
     question = get_object_by_id(id, Question)
     topic = get_object_by_id(question.topic_id, Topic)
     return render_template('answer.html', question=question, topic=topic)
@@ -40,7 +49,7 @@ def answer_view(id):
 @login_required
 def add_question_view():
     """
-    Функция для отправки формы с новым запросом.
+    Страница с формой для добавления нового вопроса пользователем.
     Если данные из формы валидны - вопрос отправляется
     в чат тг для ручной модерации.
     """
@@ -55,11 +64,19 @@ def add_question_view():
 
 @app.route('/add_success')
 def add_success_view():
+    """
+    Страница успешного добавления вопроса.
+    """
     return render_template('add_success.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_view():
+    """
+    Страница с формой регистрации.
+    Если форма валидна создается пользователь
+    и происходит редирект в профиль пользователя.
+    """
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(
@@ -77,6 +94,9 @@ def register_view():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_view():
+    """
+    Страница авторизации пользователя.
+    """
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -90,6 +110,9 @@ def login_view():
 
 @app.route('/profile')
 def profile_view():
+    """
+    Профиль пользователя.
+    """
     statistics = Statistics.query.filter_by(
         user_id=current_user.id).order_by(
             Statistics.date).all()
@@ -102,6 +125,9 @@ def profile_view():
 @app.route('/logout/')
 @login_required
 def logout_view():
+    """
+    Выход из профиля и редирект на страницу авторизации.
+    """
     logout_user()
     flash('Вы вышли из профиля.')
     return redirect(url_for('login_view'))
@@ -109,6 +135,9 @@ def logout_view():
 
 @app.route('/confirm/<string:link>/')
 def confirm_email_view(link):
+    """
+    Проверка уникальной ссылки подтверждения почты и редирект в профиль.
+    """
     user_set_confirmed(link)
     flash('Почта успешно подтверждена.', 'email_confirmed')
     return redirect(url_for('profile_view'))
