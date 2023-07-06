@@ -44,7 +44,7 @@ class Question(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
     def __repr__(self):
-        return f'{self.topic} - {self.title}'
+        return f'{self.topic}. {self.question}'
 
 
 @login_manager.user_loader
@@ -73,6 +73,7 @@ class User(db.Model, UserMixin):
     created_on = db.Column(db.Date, default=datetime.date.today)
     is_confirmed = db.Column(db.Boolean, default=False)
     confirm_link = db.Column(db.String(32), unique=True)
+    questions = db.relationship(Question)
 
     def __repr__(self):
         return f'{self.id} - {self.username}'

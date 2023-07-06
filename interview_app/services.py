@@ -101,12 +101,14 @@ def user_set_confirmed(link):
     """
     Функция проверяет наличие в базе пользователя с указанной
     ссылкой для подтверждения.
-    Если пользователь найден - полю is_confirmed присваивается значение True.
+    Если пользователь найден - полю is_confirmed присваивается значение True,
+    а уникальная ссылка для подтверждения удаляется.
     Если нет - поднимает ошибку 404.
     """
     user = User.query.filter_by(confirm_link=link).first()
     if not user:
         abort(404)
     user.is_confirmed = True
+    user.confirm_link = None
     db.session.add(user)
     db.session.commit()

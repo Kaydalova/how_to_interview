@@ -76,3 +76,17 @@ textarea {
         margin: 0 auto;
     }
 }
+
+table {
+    width: 150px; /* Ширина таблицы */
+    background: white; /* Цвет фона таблицы */
+    color: black; /* Цвет текста */
+    border-spacing: 1px; /* Расстояние между ячейками */
+    border: 1px solid grey;
+    height: 130px;
+   }
+   td, th {
+
+    padding: 8px; /* Поля вокруг текста */
+    border: 1px solid grey;
+   }

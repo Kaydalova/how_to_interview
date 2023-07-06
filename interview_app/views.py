@@ -109,6 +109,7 @@ def login_view():
 
 
 @app.route('/profile')
+@login_required
 def profile_view():
     """
     Профиль пользователя.
