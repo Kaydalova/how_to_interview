@@ -42,6 +42,7 @@ class Question(db.Model):
     question = db.Column(db.Text, nullable=False)
     answer = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    user = db.relationship("User", backref="questions")
 
     def __repr__(self):
         return f'{self.topic}. {self.question}'
@@ -66,14 +67,13 @@ class User(db.Model, UserMixin):
     """
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(
-        db.String(MAX_USERNAME_LENGTH),
-        nullable=False, unique=True)
+        db.String(MAX_USERNAME_LENGTH), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
     created_on = db.Column(db.Date, default=datetime.date.today)
     is_confirmed = db.Column(db.Boolean, default=False)
     confirm_link = db.Column(db.String(32), unique=True)
-    questions = db.relationship(Question)
+    is_admin = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return f'{self.id} - {self.username}'
@@ -100,4 +100,5 @@ class Statistics(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, default=datetime.date.today)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship("User", backref="statistics")
     solved = db.Column(db.Integer, default=0)

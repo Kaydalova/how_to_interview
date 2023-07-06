@@ -1,12 +1,14 @@
 {% extends 'base.html' %} 
-{% block title %}404. Если тут что-то было, теперь этого тут нет.{% endblock %}
+{% block title %}401. Войдите, чтобы увидеть личный кабинет.{% endblock %}
 {% block content %}
 <main>
   <section class="container my-5">
     <div class="row">
       <div class="col-12 col-lg-7 my-5">
-        <h1 class="mb-5">404</h1>
-        <p>Страница с указанным адресом не найдена :( </p>
+        <h1 class="mb-5">403</h1>
+        <p>Эта страница доступна только администраторам</p>
+
+        
         <p>
           <a href="{{ url_for('index_view') }}">Вернуться на главную</a>
         </p>
