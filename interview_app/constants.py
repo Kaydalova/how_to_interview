@@ -37,3 +37,13 @@ EMAIL_NOT_CONFIRMED = 'Добавление вопроса станет дост
 # data files
 QUESTIONS_CSV = 'interview_app/static/data/questions.csv'
 TOPICS_CSV = 'interview_app/static/data/topics.csv'
+
+# logging constants
+RECEIVER_EMAIL = 'alexandrakaydalova95@gmail.com'
+ERROR_SUBJECT = 'Ошибка в работе How to interview'
+
+# logging messages
+NEW_USER = 'Зарегистрирован новый пользователь - {}'
+NEW_QUESTION = '{} предложил новый вопрос'
+CONFIRMATION_SENT = '{} отправлено письмо для подтверждения почты'
+EMAIL_CONFIRMED = 'Почта {} успешно подтверждена.'

@@ -3,7 +3,8 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash
 
 from . import app, db
-from .constants import EIGHT_WEEKS_DAYS, EMAIL_NOT_CONFIRMED
+from .constants import (CONFIRMATION_SENT, EIGHT_WEEKS_DAYS, EMAIL_CONFIRMED,
+                        EMAIL_NOT_CONFIRMED, NEW_QUESTION, NEW_USER)
 from .forms import LoginForm, QuestionForm, RegisterForm
 from .models import Question, Statistics, Topic, User
 from .services import (get_object_by_id, get_random_question,
@@ -58,6 +59,7 @@ def add_question_view():
     form = QuestionForm()
     if form.validate_on_submit():
         send_new_question(form)
+        app.logger.info(NEW_QUESTION.format(current_user.username))
         return redirect(url_for('add_success_view'))
     return render_template('add_question.html', form=form)
 
@@ -86,8 +88,10 @@ def register_view():
         )
         db.session.add(user)
         db.session.commit()
+        app.logger.info(NEW_USER.format(user.username))
         login_user(user)
         send_confirmation(user)
+        app.logger.info(CONFIRMATION_SENT.format(current_user.username))
         return redirect(url_for('profile_view'))
     return render_template('register.html', form=form)
 
@@ -141,4 +145,5 @@ def confirm_email_view(link):
     """
     user_set_confirmed(link)
     flash('Почта успешно подтверждена.', 'email_confirmed')
+    app.logger.info(EMAIL_CONFIRMED.format(current_user.username))
     return redirect(url_for('profile_view'))
