@@ -11,5 +11,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
 
 CMD ["gunicorn", "interview_app:app", "-b", "0.0.0.0:5000"]
-# CMD ["flask", "run", "--host=0.0.0.0"]
-# CMD export FLASK_APP=test_task_app && export FLASK_DEBUG=1 && flask run --host=0.0.0.0
