@@ -69,7 +69,7 @@ class User(db.Model, UserMixin):
     username = db.Column(
         db.String(MAX_USERNAME_LENGTH), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(200), nullable=False)
     created_on = db.Column(db.Date, default=datetime.date.today)
     is_confirmed = db.Column(db.Boolean, default=False)
     confirm_link = db.Column(db.String(32), unique=True)
