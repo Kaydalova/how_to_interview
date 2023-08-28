@@ -35,7 +35,8 @@ EMAIL_NOT_CONFIRMED = 'Добавление вопроса станет дост
 
 
 # data files
-QUESTIONS_CSV = 'interview_app/static/data/questions.csv'
+#QUESTIONS_CSV = 'interview_app/static/data/questions.csv'
+QUESTIONS_CSV = 'interview_app/static/data/test.csv'
 TOPICS_CSV = 'interview_app/static/data/topics.csv'
 
 # logging constants
