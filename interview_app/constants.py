@@ -25,7 +25,7 @@ EIGHT_WEEKS_DAYS = 56
 
 # email confirmation
 SUBJECT = 'Подтверждение почты'
-MAIN_URL = 'http://127.0.0.1:5000/confirm/'
+MAIN_URL = 'http://31.129.96.219//confirm/'
 CONFIRM_MESSAGE = '''
 Вы получили это сообщение так как прошли регистрацию на сервисе How to interview.
 После завершения регистрации и подтверждения почты вам будет доступно добавление своего вопроса.
